@@ -56,10 +56,12 @@ std::vector<Slice> get_slices(Board pizza, std::unordered_set<std::pair<int, int
   std::unordered_set<Slice> inner, outer;
   std::vector<Slice> slices;
 
-  bool options[] = { true, false };
+  bool options[] = { false, true };
 
   for (auto factor = factors.begin(); factor != factors.end(); ++factor) {
-    for (int b = 0; b < 2; b++) {
+    int o = factor->first != factor->second ? 2 : 1;
+
+    for (int b = 0; b < o; b++) {
       bool rotate = options[b];
 
       inner.clear();
@@ -99,7 +101,7 @@ int main () {
   Pizza p(board, slices);
 
   auto table = random_range(0, 63, 8);
-  auto fs = get_factors(200, 250, 4, 12);
+  auto fs = get_factors(board->rows, board->columns, board->min_topping * 2, board->max_slice);
 
   //for (auto it = fs.begin(); it != fs.end(); ++it) {
   //  std::cout << it->first << " " << it->second << std::endl;
