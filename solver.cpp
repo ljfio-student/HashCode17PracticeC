@@ -21,6 +21,13 @@ namespace std {
       return x.fromX + x.fromY + x.toX + x.toY;
     }
   };
+
+  template <typename T>
+  bool operator==(const std::pair<T, T>& a, const std::pair<T, T>& b) {
+    return
+      (b.first == a.first && b.second == a.second) ||
+      (b.first == a.second && b.second == a.first);
+  }
 }
 
 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
